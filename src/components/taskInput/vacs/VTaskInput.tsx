@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
 import {MouseEventHandler, RefObject} from 'react';
-import {css} from '@emotion/react';
+import {css, Theme} from '@emotion/react';
+import theme from '../../../styles/theme';
 
 export interface VTaskInputProps {
 	taskTextAreaRef: RefObject<HTMLTextAreaElement>;
@@ -23,7 +24,7 @@ const VTaskInput = ({taskTextAreaRef, taskTypeSelectRef, onSaveBtnClick}: VTaskI
 					<button onClick={onSaveBtnClick} css={saveTaskBtnStyle}>저장</button>
 				</div>
 			</div>
-			<textarea ref={taskTextAreaRef} css={taskTextAreaStyle}/>
+			<textarea ref={taskTextAreaRef} css={taskTextAreaStyle} spellCheck={false} placeholder={'내용을 입력하세요.'}/>
 		</section>
 	);
 };
@@ -32,6 +33,8 @@ const taskInputStyle = css`
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	flex: 0 0 100px;
+	width: 100%;
 	gap: 5px;
 `
 
@@ -39,6 +42,7 @@ const taskInputHeaderStyle = css`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex: 1 0 auto;
 
   & > span {
     font-size: 25px;
@@ -50,29 +54,32 @@ const taskTypeSelectStyle = css`
 	font-size: 13px;
 	border-radius: 10px;
 	border: 1px solid gray;
+	background-color: rgba(0,0,0,0);
+	color: white;
 	
 	&:focus {
 		outline: none;
 	}
 `
 
-const taskTextAreaStyle = css`
-	width: 300px;
-	height: 100px;
+const taskTextAreaStyle = (theme: Theme) => css`
+	flex: 1 0 100px;
 	box-sizing: border-box;
 	padding: 10px;
+	border: 1px solid ${theme.color.skyblue};
+	background-color: rgba(0,0,0,0);
+	color: white;
 	
 	&:focus {
 		outline: none;
 	}
 `
 
-const saveTaskBtnStyle = css`
+const saveTaskBtnStyle = (theme: Theme) => css`
 	width: 90px;
 	height: 30px;
   border-radius: 10px;
-	border: 1px solid gray;
-	background-color: #fff;
+	background-color: ${theme.color.skyblue}
 `
 const selectAndBtnWrapStyle = css`
 	display: flex;

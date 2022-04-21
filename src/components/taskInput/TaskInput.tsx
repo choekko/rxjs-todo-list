@@ -15,6 +15,7 @@ const TaskInput = forwardRef(({onSaveBtnClick}: TaskInputProps, ref: ForwardedRe
 		taskTypeSelectRef,
 		onSaveBtnClick
 	}
+
   return <VTaskInput {...vTaskInputProps}/>
 });
 
