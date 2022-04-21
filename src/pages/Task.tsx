@@ -4,9 +4,7 @@ import {css, Theme} from '@emotion/react';
 import {TaskInputRef} from '@/components/taskInput/hooks/useTaskInput';
 import {useRef} from 'react';
 import TaskInput from '../components/taskInput/TaskInput';
-import TodoList from '../components/taskList/TodoList';
-import DoingList from '../components/taskList/DoingList';
-import DoneList from '../components/taskList/DoneList';
+import TaskList from '../components/taskList/TaskList';
 
 const Task = () => {
 	const taskInputRef = useRef<TaskInputRef>(null);
@@ -18,10 +16,10 @@ const Task = () => {
 	return <div css={taskListStyle}>
 		<div css={inputAndTodoListWrapStyle}>
 			<TaskInput ref={taskInputRef} onSaveBtnClick={handleSaveTaskBtnClick}/>
-			<TodoList/>
+			<TaskList taskType={'TODO'}/>
 		</div>
-		<DoingList/>
-		<DoneList/>
+		<TaskList taskType={'DOING'}/>
+		<TaskList taskType={'DONE'}/>
 	</div>
 }
 
@@ -34,10 +32,11 @@ const taskListStyle = (theme: Theme) => css`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  background-color: ${theme.color.backgroundDark}
+  background-color: ${theme.color.backgroundDeepDark}
 `
 
 const inputAndTodoListWrapStyle = css`
+	position: relative;
 	flex: 1 0 300px;
 	height: 100%;
 	display: flex;

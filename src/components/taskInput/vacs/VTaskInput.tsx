@@ -69,6 +69,7 @@ const taskTextAreaStyle = (theme: Theme) => css`
 	border: 1px solid ${theme.color.skyblue};
 	background-color: rgba(0,0,0,0);
 	color: white;
+	font-size: 18px;
 	
 	&:focus {
 		outline: none;
