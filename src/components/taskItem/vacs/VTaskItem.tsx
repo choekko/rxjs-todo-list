@@ -22,8 +22,9 @@ function VTaskItem<T extends TaskType>({ task }: VTaskItemProps<T>) {
 const taskItemStyle = (theme: Theme) => css`
   overflow: auto;
   height: 80px;
-  padding: 5px;
+  padding: 10px 10px 5px 10px;
   background: ${theme.color.skyblue};
+  border: 1px solid ${theme.color.backgroundDark}
 `
 
 const taskValueStyle = css`
