@@ -33,13 +33,16 @@ const useTaskInput = (callbackAfterSaveTask?: ((task: Task<TaskType>) => void) |
 			}
 			const { local } = storage;
 			const prevData = local.get(taskType) ?? [];
-			
+			const currentNumber = local.get('taskNumber') ?? 0;
+
 			const taskInfo: Omit<Task<never>, 'type'> = {
+				id: currentNumber + 1,
 				value: taskValue,
 				createdDateYmd: getDate('ymd', { withHyphen: true }),
 			}
 
-			storage.local.set(taskType, [...prevData, taskInfo]);
+			local.set(taskType, [...prevData, taskInfo]);
+			local.set('taskNumber', currentNumber + 1);
 			callbackAfterSaveTask?.({...taskInfo, type: taskType});
 			alert('업무가 저장되었습니다.')
 			reset();
