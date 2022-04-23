@@ -1,25 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useState} from 'react';
 import {css, Theme} from '@emotion/react';
 import {TaskInputRef} from '@/components/taskInput/hooks/useTaskInput';
 import {useRef} from 'react';
 import TaskInput from '../components/taskInput/TaskInput';
 import TaskList from '../components/taskList/TaskList';
+import {Task} from '../types/task';
 
-const Task = () => {
+function TaskMachine() {
 	const taskInputRef = useRef<TaskInputRef>(null);
 	const handleSaveTaskBtnClick = () => {
 		if (!taskInputRef.current) return;
 		console.log(taskInputRef.current.getType(), taskInputRef.current.getText());
 	}
 
+	const [tasksTodo, setTasksTodo] = useState<Task<'TODO'>[]>([{
+		type: 'TODO',
+		value: '테스트 업무',
+		createdDateYmd: '2022-04-06'
+	}]);
+	const [tasksDoing, setTasksDoing] = useState<Task<'DOING'>[]>([]);
+	const [tasksDone, setTasksDone] = useState<Task<'DONE'>[]>([]);
+
 	return <div css={taskListStyle}>
 		<div css={inputAndTodoListWrapStyle}>
 			<TaskInput ref={taskInputRef} onSaveBtnClick={handleSaveTaskBtnClick}/>
-			<TaskList taskType={'TODO'}/>
+			<TaskList<'TODO'> taskType={'TODO'} tasks={tasksTodo}/>
 		</div>
-		<TaskList taskType={'DOING'}/>
-		<TaskList taskType={'DONE'}/>
+		<TaskList<'DOING'> taskType={'DOING'} tasks={tasksDoing}/>
+		<TaskList<'DONE'> taskType={'DONE'} tasks={tasksDone}/>
 	</div>
 }
 
@@ -46,4 +55,4 @@ const inputAndTodoListWrapStyle = css`
 	gap: 30px;
 `
 
-export default Task;
+export default TaskMachine;

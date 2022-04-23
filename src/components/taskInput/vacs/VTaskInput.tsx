@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {MouseEventHandler, RefObject} from 'react';
 import {css, Theme} from '@emotion/react';
-import theme from '../../../styles/theme';
+import {TASK_TYPE_ICON_MAP, TASK_TYPES} from '../../../constants/task';
 
 export interface VTaskInputProps {
 	taskTextAreaRef: RefObject<HTMLTextAreaElement>;
@@ -17,9 +17,11 @@ const VTaskInput = ({taskTextAreaRef, taskTypeSelectRef, onSaveBtnClick}: VTaskI
 				<span>Task</span>
 				<div css={selectAndBtnWrapStyle}>
 					<select ref={taskTypeSelectRef} css={taskTypeSelectStyle}>
-						<option value="TODO">🔴 &nbsp; <span>TODO</span></option>
-						<option value="DOING">🟠 &nbsp; <span>DOING</span></option>
-						<option value="DONE">🟢 &nbsp; <span>DONE</span></option>
+						{
+							TASK_TYPES.map(taskType => <>
+								<option value={taskType}>{TASK_TYPE_ICON_MAP[taskType]}&nbsp;<span>{taskType}</span></option>
+							</>)
+						}
 					</select>
 					<button onClick={onSaveBtnClick} css={saveTaskBtnStyle}>저장</button>
 				</div>
@@ -56,6 +58,7 @@ const taskTypeSelectStyle = css`
 	border: 1px solid gray;
 	background-color: rgba(0,0,0,0);
 	color: white;
+	padding-left: 5px;
 	
 	&:focus {
 		outline: none;

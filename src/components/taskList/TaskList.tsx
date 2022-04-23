@@ -1,20 +1,19 @@
 import * as React from 'react';
 import VTaskList, {VTaskListProps} from './vacs/VTaskList';
-import {TaskType} from '../../types/task';
+import {Task, TaskType} from '../../types/task';
 import {VTaskInputProps} from '../taskInput/vacs/VTaskInput';
 
-interface TaskListProps {
-  taskType: TaskType
-}
+interface TaskListProps<T extends TaskType> extends VTaskListProps<T> {}
 
-const TaskList = ({ taskType }: TaskListProps) => {
+function TaskList<T extends TaskType>({ taskType, tasks }: TaskListProps<T>) {
 
-  const vTaskListProps: VTaskListProps = {
+  const vTaskListProps: VTaskListProps<T> = {
     taskType,
+    tasks,
   }
 
   return (
-    <VTaskList { ...vTaskListProps }/>
+    <VTaskList<T> { ...vTaskListProps }/>
   );
 };
 

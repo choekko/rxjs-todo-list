@@ -1,15 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
 import {css, Theme} from '@emotion/react';
-import {TaskType} from '../../../types/task';
+import {Task, TaskType} from '../../../types/task';
+import TaskItem from '../../taskItem/TaskItem';
 
-export interface VTaskListProps {
-  taskType: TaskType
+export interface VTaskListProps<T extends TaskType> {
+  taskType: T;
+  tasks: Task<T>[];
 }
 
-const VTaskList = ({taskType}: VTaskListProps) => {
+function VTaskList<T extends TaskType>({taskType, tasks}: VTaskListProps<T>) {
   return (
     <section css={theme => taskListStyle(theme, taskType)}>
+      {tasks.map(task => <TaskItem task={task}/>)}
     </section>
   );
 };
