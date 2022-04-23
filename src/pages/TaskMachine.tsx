@@ -1,22 +1,43 @@
 /** @jsxImportSource @emotion/react */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {css, Theme} from '@emotion/react';
-import TaskInput from '../components/taskInput/TaskInput';
-import TaskList from '../components/taskList/TaskList';
-import {Task} from '../types/task';
+import {Task, TaskType} from 'types/task';
+import {allTasks$} from 'streams/task';
+import TaskInput from 'components/taskInput/TaskInput';
+import TaskList from 'components/taskList/TaskList';
 
 function TaskMachine() {
-	const [tasksTodo, setTasksTodo] = useState<Task<'TODO'>[]>([{
-		type: 'TODO',
-		value: '테스트 업무',
-		createdDateYmd: '2022-04-06'
-	}]);
+	const [tasksTodo, setTasksTodo] = useState<Task<'TODO'>[]>([]);
 	const [tasksDoing, setTasksDoing] = useState<Task<'DOING'>[]>([]);
 	const [tasksDone, setTasksDone] = useState<Task<'DONE'>[]>([]);
 
+	const callbackAfterSaveTask = (task: Task<TaskType>) => {
+		switch (task.type) {
+			case 'TODO':
+				setTasksTodo(prev => [...prev, task as Task<'TODO'>]);
+				break;
+			case 'DOING':
+				setTasksDoing(prev => [...prev, task as Task<'DOING'>]);
+				break;
+			case 'DONE':
+				setTasksDone(prev => [...prev, task as Task<'DONE'>]);
+				break;
+			default:
+				break;
+		}
+	}
+
+	useEffect(() => {
+		allTasks$.subscribe(([tasksTodo, tasksDoing, tasksDone]) => {
+			setTasksTodo(tasksTodo);
+			setTasksDoing(tasksDoing);
+			setTasksDone(tasksDone);
+		});
+	}, [])
+
 	return <div css={taskListStyle}>
 		<div css={inputAndTodoListWrapStyle}>
-			<TaskInput />
+			<TaskInput callbackAfterSaveTask={callbackAfterSaveTask}/>
 			<TaskList<'TODO'> taskType={'TODO'} tasks={tasksTodo}/>
 		</div>
 		<TaskList<'DOING'> taskType={'DOING'} tasks={tasksDoing}/>

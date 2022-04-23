@@ -1,12 +1,14 @@
 import * as React from 'react';
-import VTaskInput, {VTaskInputProps} from './vacs/VTaskInput';
-import useTaskInput from './hooks/useTaskInput';
+import {Task, TaskType} from 'types/task';
+import useTaskInput from 'components/taskInput/hooks/useTaskInput';
+import VTaskInput, {VTaskInputProps} from 'components/taskInput/vacs/VTaskInput';
 
 interface TaskInputProps {
+	callbackAfterSaveTask?: ((task: Task<TaskType>) => void) | (() => void);
 }
 
-const TaskInput = ({}: TaskInputProps)  => {
-	const { currentTaskType, currentTaskValue, handleTaskTypeSelectChange, handleTaskValueInputChange, handleSaveBtnClick } = useTaskInput();
+const TaskInput = ({callbackAfterSaveTask}: TaskInputProps)  => {
+	const { currentTaskType, currentTaskValue, handleTaskTypeSelectChange, handleTaskValueInputChange, handleSaveBtnClick } = useTaskInput(callbackAfterSaveTask);
 
 	const vTaskInputProps: VTaskInputProps = {
 		currentTaskValue,

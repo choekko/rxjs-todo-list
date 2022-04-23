@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
 import {css, Theme} from '@emotion/react';
-import {Task, TaskType} from '../../../types/task';
-import TaskItem from '../../taskItem/TaskItem';
+import {Task, TaskType} from 'types/task';
+import TaskItem from 'components/taskItem/TaskItem';
 
 export interface VTaskListProps<T extends TaskType> {
   taskType: T;

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import {Task, TaskType} from '../../../types/task';
 import {css, Theme} from '@emotion/react';
-import {TASK_TYPE_ICON_MAP} from '../../../constants/task';
+import {Task, TaskType} from 'types/task';
+import {TASK_TYPE_ICON_MAP} from 'constants/task';
 
 export interface VTaskItemProps<T extends TaskType> {
   task: Task<T>

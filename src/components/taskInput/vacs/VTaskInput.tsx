@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import {ChangeEventHandler, MouseEventHandler, ReactEventHandler, RefObject} from 'react';
+import {ChangeEventHandler, MouseEventHandler} from 'react';
 import {css, Theme} from '@emotion/react';
-import {TASK_TYPE_ICON_MAP, TASK_TYPES} from '../../../constants/task';
-import {TaskType} from '../../../types/task';
+import {TaskType} from 'types/task';
+import {TASK_TYPE_ICON_MAP, TASK_TYPES} from 'constants/task';
 
 export interface VTaskInputProps {
 	currentTaskType: TaskType;

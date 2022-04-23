@@ -1,4 +1,4 @@
-import {TaskType} from '../types/task';
+import {TaskType} from 'types/task';
 
 export const TASK_TYPES = ['TODO', 'DOING', 'DONE'] as const;
 

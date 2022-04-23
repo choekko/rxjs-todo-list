@@ -1,6 +1,6 @@
 import * as React from 'react';
-import VTaskItem, {VTaskItemProps} from './vacs/VTaskItem';
-import {TaskType} from '../../types/task';
+import {TaskType} from 'types/task';
+import VTaskItem, {VTaskItemProps} from 'components/taskItem/vacs/VTaskItem';
 
 interface TaskItemProps<T extends TaskType> extends VTaskItemProps<T> {}
 

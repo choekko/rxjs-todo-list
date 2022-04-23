@@ -1,10 +1,10 @@
 import {ChangeEvent, useCallback, useState} from 'react';
-import storage from '../../../utils/storage';
-import {Task, TaskType} from '../../../types/task';
-import {TASK_TYPES} from '../../../constants/task';
-import {getDate} from '../../../utils/date';
+import {Task, TaskType} from 'types/task';
+import {TASK_TYPES} from 'constants/task';
+import {getDate} from 'utils/date';
+import storage from 'utils/storage';
 
-const useTaskInput = () => {
+const useTaskInput = (callbackAfterSaveTask?: ((task: Task<TaskType>) => void) | (() => void)) => {
 	const [taskType, setTaskType] = useState<TaskType>('TODO');
 	const [taskValue, setTaskValue] = useState<string>('');
 
@@ -13,7 +13,6 @@ const useTaskInput = () => {
 		setTaskValue('');
 	}
 
-
 	const eventHandler = {
 		handleTaskTypeSelectChange: useCallback((e: ChangeEvent<HTMLSelectElement>) => {
 			const taskType = e.currentTarget.value as TaskType;
@@ -21,12 +20,10 @@ const useTaskInput = () => {
 				alert('업무 상태 선택에 오류가 있습니다');
 				return;
 			}
-			console.log(taskType);
 			setTaskType(taskType);
 		}, []),
 		handleTaskValueInputChange: useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
 			const taskValue = e.currentTarget.value;
-			console.log(taskValue);
 			setTaskValue(taskValue);
 		}, []),
 		handleSaveBtnClick: () => {
@@ -43,6 +40,7 @@ const useTaskInput = () => {
 			}
 
 			storage.local.set(taskType, [...prevData, taskInfo]);
+			callbackAfterSaveTask?.({...taskInfo, type: taskType});
 			alert('업무가 저장되었습니다.')
 			reset();
 		}
