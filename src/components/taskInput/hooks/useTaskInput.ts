@@ -2,6 +2,7 @@ import {ChangeEvent, useCallback, useState} from 'react';
 import storage from '../../../utils/storage';
 import {Task, TaskType} from '../../../types/task';
 import {TASK_TYPES} from '../../../constants/task';
+import {getDate} from '../../../utils/date';
 
 const useTaskInput = () => {
 	const [taskType, setTaskType] = useState<TaskType>('TODO');
@@ -34,10 +35,14 @@ const useTaskInput = () => {
 				return;
 			}
 			const { local } = storage;
-			console.log(taskType);
 			const prevData = local.get(taskType) ?? [];
+			
+			const taskInfo: Omit<Task<never>, 'type'> = {
+				value: taskValue,
+				createdDateYmd: getDate('ymd', { withHyphen: true }),
+			}
 
-			storage.local.set(taskType, [...prevData, taskValue]);
+			storage.local.set(taskType, [...prevData, taskInfo]);
 			alert('업무가 저장되었습니다.')
 			reset();
 		}
