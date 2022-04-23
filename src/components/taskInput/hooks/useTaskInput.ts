@@ -1,21 +1,49 @@
-import {ForwardedRef, useImperativeHandle, useRef} from 'react';
-import {TaskType} from '@/types/task';
+import {ChangeEvent, useCallback, useState} from 'react';
+import storage from '../../../utils/storage';
+import {Task, TaskType} from '../../../types/task';
+import {TASK_TYPES} from '../../../constants/task';
 
-export interface TaskInputRef {
-	getText: () => string;
-	getType: () => TaskType;
-}
+const useTaskInput = () => {
+	const [taskType, setTaskType] = useState<TaskType>('TODO');
+	const [taskValue, setTaskValue] = useState<string>('');
 
-const useTaskInput = (ref: ForwardedRef<TaskInputRef>) => {
-	const taskTextAreaRef = useRef<HTMLTextAreaElement>(null);
-	const taskTypeSelectRef = useRef<HTMLSelectElement>(null);
+	const reset = () => {
+		setTaskType('TODO');
+		setTaskValue('');
+	}
 
-	useImperativeHandle(ref, () => ({
-		getText: () => taskTextAreaRef.current?.value ?? '',
-		getType: () => (taskTypeSelectRef.current?.value ?? '') as TaskType
-	}))
 
-	return { taskTextAreaRef, taskTypeSelectRef };
+	const eventHandler = {
+		handleTaskTypeSelectChange: useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+			const taskType = e.currentTarget.value as TaskType;
+			if (!TASK_TYPES.includes(taskType)) {
+				alert('업무 상태 선택에 오류가 있습니다');
+				return;
+			}
+			console.log(taskType);
+			setTaskType(taskType);
+		}, []),
+		handleTaskValueInputChange: useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+			const taskValue = e.currentTarget.value;
+			console.log(taskValue);
+			setTaskValue(taskValue);
+		}, []),
+		handleSaveBtnClick: () => {
+			if (!Boolean(taskValue)) {
+				alert('업무 내용을 입력해주세요.');
+				return;
+			}
+			const { local } = storage;
+			console.log(taskType);
+			const prevData = local.get(taskType) ?? [];
+
+			storage.local.set(taskType, [...prevData, taskValue]);
+			alert('업무가 저장되었습니다.')
+			reset();
+		}
+	} as const;
+
+	return { currentTaskType: taskType, currentTaskValue: taskValue, ...eventHandler };
 }
 
 export default useTaskInput;

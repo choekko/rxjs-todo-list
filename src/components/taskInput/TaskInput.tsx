@@ -1,22 +1,22 @@
 import * as React from 'react';
 import VTaskInput, {VTaskInputProps} from './vacs/VTaskInput';
-import useTaskInput, {TaskInputRef} from './hooks/useTaskInput';
-import {ForwardedRef, forwardRef, MouseEventHandler} from 'react';
+import useTaskInput from './hooks/useTaskInput';
 
 interface TaskInputProps {
-	onSaveBtnClick: MouseEventHandler<HTMLButtonElement>
 }
 
-const TaskInput = forwardRef(({onSaveBtnClick}: TaskInputProps, ref: ForwardedRef<TaskInputRef>)  => {
-	const { taskTypeSelectRef, taskTextAreaRef } = useTaskInput(ref);
+const TaskInput = ({}: TaskInputProps)  => {
+	const { currentTaskType, currentTaskValue, handleTaskTypeSelectChange, handleTaskValueInputChange, handleSaveBtnClick } = useTaskInput();
 
 	const vTaskInputProps: VTaskInputProps = {
-		taskTextAreaRef,
-		taskTypeSelectRef,
-		onSaveBtnClick
+		currentTaskValue,
+		currentTaskType,
+		onTaskValueInputChange: handleTaskValueInputChange,
+		onTaskTypeSelectChange: handleTaskTypeSelectChange,
+		onSaveBtnClick: handleSaveBtnClick
 	}
 
   return <VTaskInput {...vTaskInputProps}/>
-});
+};
 
 export default TaskInput;

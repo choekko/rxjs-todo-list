@@ -1,32 +1,35 @@
 /** @jsxImportSource @emotion/react */
 import * as React from 'react';
-import {MouseEventHandler, RefObject} from 'react';
+import {ChangeEventHandler, MouseEventHandler, ReactEventHandler, RefObject} from 'react';
 import {css, Theme} from '@emotion/react';
 import {TASK_TYPE_ICON_MAP, TASK_TYPES} from '../../../constants/task';
+import {TaskType} from '../../../types/task';
 
 export interface VTaskInputProps {
-	taskTextAreaRef: RefObject<HTMLTextAreaElement>;
-	taskTypeSelectRef: RefObject<HTMLSelectElement>;
+	currentTaskType: TaskType;
+	currentTaskValue: string;
+	onTaskTypeSelectChange: ChangeEventHandler<HTMLSelectElement>;
+	onTaskValueInputChange: ChangeEventHandler<HTMLTextAreaElement>;
 	onSaveBtnClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const VTaskInput = ({taskTextAreaRef, taskTypeSelectRef, onSaveBtnClick}: VTaskInputProps)  => {
+const VTaskInput = ({currentTaskType, currentTaskValue, onTaskTypeSelectChange, onTaskValueInputChange, onSaveBtnClick}: VTaskInputProps)  => {
 	return (
 		<section css={taskInputStyle}>
 			<div css={taskInputHeaderStyle}>
 				<span>Task</span>
 				<div css={selectAndBtnWrapStyle}>
-					<select ref={taskTypeSelectRef} css={taskTypeSelectStyle}>
+					<select css={taskTypeSelectStyle} onChange={onTaskTypeSelectChange}>
 						{
-							TASK_TYPES.map(taskType => <>
-								<option value={taskType}>{TASK_TYPE_ICON_MAP[taskType]}&nbsp;<span>{taskType}</span></option>
-							</>)
+							TASK_TYPES.map(taskType =>
+								<option key={taskType} value={taskType} selected={taskType === currentTaskType}>{TASK_TYPE_ICON_MAP[taskType]}&nbsp; {taskType}</option>
+							)
 						}
 					</select>
 					<button onClick={onSaveBtnClick} css={saveTaskBtnStyle}>저장</button>
 				</div>
 			</div>
-			<textarea ref={taskTextAreaRef} css={taskTextAreaStyle} spellCheck={false} placeholder={'내용을 입력하세요.'}/>
+			<textarea css={taskTextAreaStyle} spellCheck={false} placeholder={'내용을 입력하세요.'} onChange={onTaskValueInputChange} value={currentTaskValue}/>
 		</section>
 	);
 };

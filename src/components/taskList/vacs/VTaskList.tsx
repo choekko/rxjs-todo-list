@@ -12,7 +12,8 @@ export interface VTaskListProps<T extends TaskType> {
 function VTaskList<T extends TaskType>({taskType, tasks}: VTaskListProps<T>) {
   return (
     <section css={theme => taskListStyle(theme, taskType)}>
-      {tasks.map(task => <TaskItem task={task}/>)}
+      {tasks.map((task, idx) => <TaskItem key={idx} task={task}/>)}
+      {/* key로 넣을만한 게 없어 일단 idx 삽입. (현재 업무를 스토리지로 저장하기 떄문에 업무에 고유번호를 붙이기 힘든 상황) */}
     </section>
   );
 };
