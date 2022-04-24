@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './reducers';
-import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import configureStore from './store/configureStore';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const store = configureStore({reducer: rootReducer});
+const store = configureStore();
 
 root.render(
   <Provider store={store}>

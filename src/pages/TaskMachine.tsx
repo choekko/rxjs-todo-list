@@ -5,43 +5,25 @@ import {Task, TaskType} from 'types/task';
 import {allTasks$} from 'streams/task';
 import TaskInput from 'components/taskInput/TaskInput';
 import TaskList from 'components/taskList/TaskList';
+import {useDispatch, useSelector} from 'react-redux';
+import {ReducerType} from '../reducers';
+import {initTasks} from '../actions/tasks';
 
 function TaskMachine() {
-	const [tasksTodo, setTasksTodo] = useState<Task<'TODO'>[]>([]);
-	const [tasksDoing, setTasksDoing] = useState<Task<'DOING'>[]>([]);
-	const [tasksDone, setTasksDone] = useState<Task<'DONE'>[]>([]);
-
-	const callbackAfterSaveTask = (task: Task<TaskType>) => {
-		switch (task.type) {
-			case 'TODO':
-				setTasksTodo(prev => [...prev, task as Task<'TODO'>]);
-				break;
-			case 'DOING':
-				setTasksDoing(prev => [...prev, task as Task<'DOING'>]);
-				break;
-			case 'DONE':
-				setTasksDone(prev => [...prev, task as Task<'DONE'>]);
-				break;
-			default:
-				break;
-		}
-	}
+	const tasks = useSelector((store: ReducerType) => store.tasks)
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		allTasks$.subscribe(([tasksTodo, tasksDoing, tasksDone]) => {
-			setTasksTodo(tasksTodo);
-			setTasksDoing(tasksDoing);
-			setTasksDone(tasksDone);
-		});
+		dispatch(initTasks());
 	}, [])
 
 	return <div css={taskListStyle}>
 		<div css={inputAndTodoListWrapStyle}>
-			<TaskInput callbackAfterSaveTask={callbackAfterSaveTask}/>
-			<TaskList<'TODO'> taskType={'TODO'} tasks={tasksTodo}/>
+			<TaskInput />
+			<TaskList<'TODO'> taskType={'TODO'} tasks={tasks.TODO}/>
 		</div>
-		<TaskList<'DOING'> taskType={'DOING'} tasks={tasksDoing}/>
-		<TaskList<'DONE'> taskType={'DONE'} tasks={tasksDone}/>
+		<TaskList<'DOING'> taskType={'DOING'} tasks={tasks.DOING}/>
+		<TaskList<'DONE'> taskType={'DONE'} tasks={tasks.DONE}/>
 	</div>
 }
 

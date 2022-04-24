@@ -1,4 +1,4 @@
-import {combineLatest, map, timer} from 'rxjs';
+import {combineLatest, from, map, of, timer} from 'rxjs';
 import {Task} from 'types/task';
 import storage from 'utils/storage';
 
