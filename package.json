@@ -48,7 +48,7 @@
   "devDependencies": {
     "@reactivex/rxjs": "^6.6.7",
     "@reduxjs/toolkit": "^1.8.1",
-    "husky": "^7.0.4",
+    "husky": "4",
     "@emotion/eslint-plugin": "^11.7.0",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
