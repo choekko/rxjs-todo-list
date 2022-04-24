@@ -5,31 +5,21 @@ import {Task, TaskType} from 'types/task';
 import {TASK_TYPE_ICON_MAP} from 'constants/task';
 import {useDispatch, useSelector} from 'react-redux';
 import {dropItem, setDraggedItem} from '../../../actions/drag';
-import {ReducerType} from '../../../reducers';
-import {DragEvent} from 'react';
+import {DragEvent, DragEventHandler} from 'react';
 
 export interface VTaskItemProps<T extends TaskType> {
   task: Task<T>
+  onDragEnd?: DragEventHandler;
+  onDragStart?: DragEventHandler;
 }
 
-function VTaskItem<T extends TaskType>({ task }: VTaskItemProps<T>) {
-  const dispatch = useDispatch();
-  const listTypeWhereDragOver = useSelector((store: ReducerType) => store.drag?.listTypeWhereDragOver ?? task.type)
-  const handleOnDragStart = () => {
-    dispatch(setDraggedItem({...task, listTypeWhereDragOver: task.type}));
-  }
-  const handleOnDragEnd = (e: DragEvent) => {
-    e.preventDefault()
-    dispatch(dropItem({task, listTypeWhereDragOver}))
-  }
-
+function VTaskItem<T extends TaskType>({ task, onDragEnd, onDragStart }: VTaskItemProps<T>) {
   return (
     <article
       css={taskItemStyle}
       draggable={true}
-      onDragStart={handleOnDragStart}
-      onDragEnd={handleOnDragEnd}
-      onDrop={() => console.log('drop')}
+      onDragStart={(e) => onDragStart?.(e)}
+      onDragEnd={(e) => onDragEnd?.(e)}
     >
       <p css={taskValueStyle}>{task.value}</p>
       <div css={taskFooterStyle}>

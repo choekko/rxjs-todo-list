@@ -19,6 +19,7 @@ export const addTaskEpic = (action$: Observable<Action<AddTaskPayload>>) => {
       const prevData = local.get(type) ?? [];
       const currentNumber = local.get('taskNumber') ?? 0;
 
+
       const taskInfo: Omit<Task<never>, 'type'> = {
         id: currentNumber + 1,
         value,
