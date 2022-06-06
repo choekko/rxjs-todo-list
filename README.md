@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+## Break Out Game with Rx.js 
+🗣 _It is a todo-list app implemented with redux-observable._
+> https://rxjs-todo-list.netlify.app/
+<br/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1. Preview
 
-## Available Scripts
 
-In the project directory, you can run:
+<br/>
 
-### `yarn start`
+### 2. Start on Local
+```
+% git clone https://github.com/choekko/rxjs-todo-list.git
+% cd rxjs-todo-list
+% yarn install
+% yarn start
+```
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 3. How to Use
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<br/>
 
-### `yarn test`
+### 4. Stack
+|<img width="30" alt="react-logo" src="https://user-images.githubusercontent.com/67793530/172109940-97d63c83-b643-47ad-99bb-d71290cb72e4.png">|<img width="30" alt="rxjs-logo" src="https://user-images.githubusercontent.com/67793530/172110248-384ffd66-503e-4d19-b81a-c48d9846e659.png">|<img width="30" alt="rxjs-logo" src="https://user-images.githubusercontent.com/67793530/172107578-24931e75-4a5d-4e4d-b7d4-f898510df811.png">|<img width="30" alt="rxjs-logo" src="https://user-images.githubusercontent.com/67793530/172115548-bada64a4-c822-4a68-a132-efc6480672f7.png">|<img width="30" alt="rxjs-logo" src="https://user-images.githubusercontent.com/67793530/172115785-c60420e8-c29c-4594-8fcd-22e5f71053b0.png">
+|:-:|:-:|:-:|:-:|:-:|
+|[React.js](https://ko.reactjs.org/)|[Typescript](https://www.typescriptlang.org/)|[Rx.js](https://rxjs.dev/)|[Redux-Observable](https://redux-observable.js.org/)|[Emotion](https://emotion.sh/docs/introduction)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br/>
 
-### `yarn build`
+### 5. Folder Structure
+```js
+src/
+ㄴ actions/      // Functions for making Redux Action
+ㄴ components/   // Main Components
+   ㄴ Component/
+     ㄴ vacs/    // View Assets Components
+     ㄴ hooks/   // Custom Hooks
+ㄴ constants/    // Common Constants
+ㄴ epics/        // Epics for Redux-Observable
+ㄴ hooks/        // Common hooks
+ㄴ pages/        // Page Components
+ㄴ reducers/     // Reducers for Redux
+ㄴ store/        // Files for configuring Redux Store
+ㄴ streams/      // Rx.js Streams
+ㄴ styles/       // Files for Setting Emotion and Common Style
+ㄴ types/        // Common types
+ㄴ utils/        // Common Utils
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
