@@ -8,12 +8,12 @@ interface TaskItemProps<T extends TaskType> {
 }
 
 function TaskItem<T extends TaskType>({ task }: TaskItemProps<T>) {
-  const { handleOnDragEnd, handleOnDragStart, handleDeleteBtnClick } = useTaskItem<T>(task);
+  const { handleDragEnd, handleDragStart, handleDeleteBtnClick } = useTaskItem<T>(task);
 
   const vTaskItemProps: VTaskItemProps<T> = {
     task,
-    onDragStart: handleOnDragStart,
-    onDragEnd: handleOnDragEnd,
+    onDragStart: handleDragStart,
+    onDragEnd: handleDragEnd,
     onDeleteBtnClick: handleDeleteBtnClick,
   };
   return <VTaskItem<T> {...vTaskItemProps} />;

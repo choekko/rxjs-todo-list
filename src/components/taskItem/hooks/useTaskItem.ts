@@ -10,10 +10,10 @@ function useTaskItem<T extends TaskType>(task: Task<T>) {
   const listTypeWhereDragOver = useSelector((store: ReducerType) => store.drag?.listTypeWhereDragOver ?? task.type);
 
   const eventHandlers = {
-    handleOnDragStart: () => {
+    handleDragStart: () => {
       dispatch(setDraggedItem({ ...task, listTypeWhereDragOver: task.type }));
     },
-    handleOnDragEnd: (e: DragEvent) => {
+    handleDragEnd: (e: DragEvent) => {
       e.preventDefault();
       dispatch(dropItem({ task, listTypeWhereDragOver }));
     },
