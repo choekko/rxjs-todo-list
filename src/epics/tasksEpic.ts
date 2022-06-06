@@ -5,7 +5,7 @@ import { Action } from '../types/common';
 import storage from '../utils/storage';
 import { Task } from '../types/task';
 import { getDate } from '../utils/date';
-import { AddTaskPayload, setTasks } from '../actions/tasks';
+import { AddTaskPayload, saveTasks, setTasks } from '../actions/tasks';
 import { allTasks$ } from '../streams/task';
 
 export const addTaskEpic = (action$: Observable<Action<AddTaskPayload>>) => {
@@ -15,23 +15,20 @@ export const addTaskEpic = (action$: Observable<Action<AddTaskPayload>>) => {
       if (!action$.payload) throw new TypeError('addTaskEpic :: Please throw payload');
       const { value, type } = action$.payload;
       const { local } = storage;
-      const prevData = local.get(type) ?? [];
       const currentNumber = local.get('taskNumber') ?? 0;
 
-      const taskInfo: Omit<Task<never>, 'type'> = {
+      const taskInfo: Task<'TODO' | 'DONE' | 'DOING'> = {
         id: currentNumber + 1,
+        type,
         value,
         createdDateYmd: getDate('ymd', { withHyphen: true }),
       };
 
-      local.set(type, [...prevData, taskInfo]);
-      local.set('taskNumber', currentNumber + 1);
-      return {
-        type,
-        ...taskInfo,
-      };
+      return taskInfo;
     }),
-    map(task => setTasks({ [task.type]: [task] })),
+    mergeMap<Task<'TODO' | 'DONE' | 'DOING'>, Action[]>(taskInfo => {
+      return [setTasks({ [taskInfo.type]: [taskInfo] }), saveTasks()];
+    }),
   );
 };
 
