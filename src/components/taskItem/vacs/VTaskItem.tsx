@@ -36,6 +36,7 @@ const taskValueStyle = css`
   background-color: white;
   border-radius: 10px;
   height: 60px;
+  overflow: auto;
 `;
 
 const taskFooterStyle = css`
