@@ -22,9 +22,9 @@ const tasks = (state: Tasks = initialTasks, action: Action): Tasks => {
   switch (type) {
     case actionTypes.SET_TASKS:
       return {
-        TODO: [...TODO, ...(payload?.TODO ?? [])],
-        DOING: [...DOING, ...(payload?.DOING ?? [])],
-        DONE: [...DONE, ...(payload?.DONE ?? [])],
+        TODO: payload?.TODO ?? TODO,
+        DOING: payload?.DOING ?? DOING,
+        DONE: payload?.DONE ?? DONE,
       };
     case actionTypes.MOVE_TASK:
       const { task: targetTask, listTypeWhereDragOver } = payload as MoveTaskPayload;

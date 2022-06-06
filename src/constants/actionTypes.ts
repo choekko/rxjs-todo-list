@@ -10,6 +10,7 @@ const actionTypes = {
   SET_TASKS: 'SET_TASKS',
   MOVE_TASK: 'MOVE_TASK',
   SAVE_TASKS: 'SAVE_TASKS',
+  DELETE_TASK: 'DELETE_TASK',
 } as const;
 
 export default actionTypes;

@@ -3,20 +3,23 @@ import * as React from 'react';
 import { css, Theme } from '@emotion/react';
 import { Task, TaskType } from 'types/task';
 import { TASK_TYPE_ICON_MAP } from 'constants/task';
-import { DragEventHandler } from 'react';
+import { DragEventHandler, MouseEventHandler } from 'react';
 
 export interface VTaskItemProps<T extends TaskType> {
   task: Task<T>;
-  onDragEnd?: DragEventHandler;
-  onDragStart?: DragEventHandler;
+  onDragEnd: DragEventHandler;
+  onDragStart: DragEventHandler;
+  onDeleteBtnClick: MouseEventHandler;
 }
 
-function VTaskItem<T extends TaskType>({ task, onDragEnd, onDragStart }: VTaskItemProps<T>) {
+function VTaskItem<T extends TaskType>({ task, onDragEnd, onDragStart, onDeleteBtnClick }: VTaskItemProps<T>) {
   return (
     <article css={taskItemStyle} draggable={true} onDragStart={e => onDragStart?.(e)} onDragEnd={e => onDragEnd?.(e)}>
       <p css={taskValueStyle}>{task.value}</p>
       <div css={taskFooterStyle}>
-        <button css={deleteBtnStyle}>DELETE</button>
+        <button css={deleteBtnStyle} onClick={onDeleteBtnClick}>
+          DELETE
+        </button>
         <span>
           {task.createdDateYmd} {TASK_TYPE_ICON_MAP[task.type]}
         </span>
