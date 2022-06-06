@@ -16,7 +16,10 @@ function VTaskItem<T extends TaskType>({ task, onDragEnd, onDragStart }: VTaskIt
     <article css={taskItemStyle} draggable={true} onDragStart={e => onDragStart?.(e)} onDragEnd={e => onDragEnd?.(e)}>
       <p css={taskValueStyle}>{task.value}</p>
       <div css={taskFooterStyle}>
-        {task.createdDateYmd} {TASK_TYPE_ICON_MAP[task.type]}
+        <button css={deleteBtnStyle}>DELETE</button>
+        <span>
+          {task.createdDateYmd} {TASK_TYPE_ICON_MAP[task.type]}
+        </span>
       </div>
     </article>
   );
@@ -40,8 +43,23 @@ const taskValueStyle = css`
 `;
 
 const taskFooterStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 5px;
-  float: right;
+
+  span {
+    color: black;
+  }
+`;
+
+const deleteBtnStyle = css`
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    color: white;
+  }
 `;
 
 export default VTaskItem;
