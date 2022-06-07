@@ -25,9 +25,9 @@ const VTaskInput = ({
       <div css={taskInputHeaderStyle}>
         <span>Task</span>
         <div css={selectAndBtnWrapStyle}>
-          <select css={taskTypeSelectStyle} onChange={onTaskTypeSelectChange}>
+          <select css={taskTypeSelectStyle} onChange={onTaskTypeSelectChange} value={currentTaskType}>
             {TASK_TYPES.map(taskType => (
-              <option key={taskType} value={taskType} selected={taskType === currentTaskType}>
+              <option key={taskType} value={taskType}>
                 {TASK_TYPE_ICON_MAP[taskType]}&nbsp; {taskType}
               </option>
             ))}
