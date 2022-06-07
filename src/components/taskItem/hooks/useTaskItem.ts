@@ -18,7 +18,7 @@ function useTaskItem<T extends TaskType>(task: Task<T>) {
       dispatch(dropItem({ task, listTypeWhereDragOver }));
     },
     handleDeleteBtnClick: () => {
-      if (confirm('해당 업무를 삭제하시겠습니까?')) {
+      if (confirm('Are you sure you want to delete the task?\n')) {
         dispatch(deleteTask({ type: task.type, id: task.id }));
       }
     },

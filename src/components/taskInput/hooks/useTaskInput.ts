@@ -18,7 +18,7 @@ const useTaskInput = () => {
     handleTaskTypeSelectChange: useCallback((e: ChangeEvent<HTMLSelectElement>) => {
       const taskType = e.currentTarget.value as TaskType;
       if (!TASK_TYPES.includes(taskType)) {
-        alert('업무 상태 선택에 오류가 있습니다');
+        alert('There is an error in the status selection.');
         return;
       }
       setTaskType(taskType);
@@ -29,7 +29,7 @@ const useTaskInput = () => {
     }, []),
     handleSaveBtnClick: () => {
       if (!taskValue) {
-        alert('업무 내용을 입력해주세요.');
+        alert('Please enter your task.');
         return;
       }
       dispatch(
@@ -38,7 +38,7 @@ const useTaskInput = () => {
           value: taskValue,
         }),
       );
-      alert('업무가 저장되었습니다.');
+      alert('Task has been saved.');
       reset();
     },
   } as const;
