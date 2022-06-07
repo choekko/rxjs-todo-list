@@ -31,7 +31,6 @@ function VTaskItem<T extends TaskType>({ task, onDragEnd, onDragStart, onDeleteB
 const taskItemStyle = (theme: Theme) => css`
   z-index: 1;
   position: relative;
-  overflow: auto;
   height: 80px;
   padding: 10px 10px 5px 10px;
   background: ${theme.color.skyblue};
